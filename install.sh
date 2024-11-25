@@ -19,14 +19,17 @@ fi
 echo "Installing Node.js version 20.12.2..."
 nvm install 20.12.2
 nvm use 20.12.2
+nvm alias default 20.12.2
 
 node_version=$(node -v)
 if [ "$node_version" != "v20.12.2" ]; then
     echo "Failed to install Node.js version 20.12.2. Current version: $node_version"
     exit 1
 fi
+
 echo "Node.js version: $node_version"
 echo "NPM version: $(npm -v)"
+source ~/.bashrc
 dependencies=(
     libx11-xcb1
     libxtst6
@@ -40,6 +43,7 @@ dependencies=(
     libgbm1
     libpangocairo-1.0-0
 )
+
 echo "Installing system dependencies..."
 for lib in "${dependencies[@]}"; do
     if ! dpkg -l | grep -qw "$lib"; then
